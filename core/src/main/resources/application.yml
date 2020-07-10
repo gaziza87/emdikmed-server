@@ -1,0 +1,44 @@
+server:
+  port: 8767
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+
+spring:
+  application:
+    name: core
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 50MB
+      location: ..
+  data:
+    mongodb:
+      database: emdikmed
+      host: localhost
+      port: 27017
+      defaultbucket: emdikmedfs
+
+logging:
+  file: logs/dev_app.log
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    org.springframework.web: DEBUG
+    guru.springframework.controllers: DEBUG
+    org.hibernate: DEBUG
+
+eureka:
+  client:
+    region: default
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+    enabled: true
+  instance:
+    prefer-ip-address: true

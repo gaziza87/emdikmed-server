@@ -1,0 +1,54 @@
+server:
+  port: 8762
+  servlet:
+    session:
+      cookie:
+        http-only: true
+      timeout: 60m
+      tracking-modes: cookie
+
+spring:
+  application:
+    name: gateway
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 50MB
+      location: ..
+  data:
+    mongodb:
+      database: emdikmed
+      host: localhost
+      port: 27017
+  jwt:
+    token:
+      secret:
+        key: Asjfwol2asf123142Ags1k23hnSA36as6f4qQ324FEsvb
+
+eureka:
+  client:
+    region: default
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+
+zuul:
+  prefix: /emdikmed
+#  routes:
+#    med-users:
+#      path: /med-users/**
+#      serviceId: med-users
+#      sensitive-headers: Set-Cookie,Authorization
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 600000
+
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
